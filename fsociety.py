@@ -144,9 +144,14 @@ elif sys.argv[1] == "-eg" or sys.argv[1] == "--examples":
         print(f"{key:>16s} : {values}")
 
 elif sys.argv[1] == "-c" or sys.argv[1] == "--cmdinfo":
-    os.system(f"curl cht.sh/{args.cmdinfo}")
-    Logo.author()
-    logging.info(args)
+    if args.quiet:
+        os.system(f"curl cht.sh/{args.cmdinfo} > etc\\commands_info.txt")
+        Logo.author()
+        logging.info(args)
+    elif args.verbose:
+        os.system(f"curl cht.sh/{args.cmdinfo}")
+        Logo.author()
+        logging.info(args)
 
 elif len(sys.argv) > 2:
     if args.quiet:
