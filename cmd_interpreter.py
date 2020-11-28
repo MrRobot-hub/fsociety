@@ -163,4 +163,4 @@ elif len(sys.argv) > 2:
 
 logger = logging.getLogger("Neo X. Coders")
 
-print(logger)
+print("\033[33m",logger, "\033[0m")
