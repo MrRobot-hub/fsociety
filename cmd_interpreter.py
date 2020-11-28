@@ -158,7 +158,6 @@ elif len(sys.argv) > 2:
     elif args.verbose:
         parsed_data = Check_arch(path_curl32, path_curl64, args.lang, args.query)
         parsed_data.lang_query_curl()
-        print(parsed_data)
         Logo.author()
         logging.info(args)
 
