@@ -7,7 +7,6 @@ import os
 import sys
 import argparse
 import logging
-from pprint import pprint
 from utilities.logo import Logo
 import platform
 from utilities.utility import Check_arch
