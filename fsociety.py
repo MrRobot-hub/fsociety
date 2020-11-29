@@ -11,6 +11,8 @@ from utilities.logo import Logo
 import platform
 from utilities.utility import Check_arch
 from utilities.check_dir import create_dir
+from utilities.time import get_time
+from utilities.time import get_date
 
 path_curl32 = "bin\\curl-win32\\bin\\curl.exe"
 path_curl64 = "bin\\curl-win64\\bin\\curl.exe"
@@ -19,6 +21,9 @@ Logo.create_logo()
 # create directories
 create_dir()
 
+#initialize time
+current_time = get_time()
+today_is = get_date()
 # get arguments
 parser = argparse.ArgumentParser(
     description="\nLearn programming by @NEO X. CODERS. You can learn any of programming languages from here. Just give a programming name or programming name with a particular topic as an argument to the file\n"
@@ -139,7 +144,7 @@ elif sys.argv[1] == "-eg" or sys.argv[1] == "--examples":
 
 elif sys.argv[1] == "-c" or sys.argv[1] == "--cmdinfo":
     if args.quiet:
-        os.system(f"curl cht.sh/{args.cmdinfo} > etc\\commands_info.txt")
+        os.system(f"curl cht.sh/{args.cmdinfo} > etc\\{today_is}-COMMAND-{args.cmdinfo}.txt")
         Logo.author()
         logging.info(args)
     elif args.verbose:
@@ -150,7 +155,7 @@ elif sys.argv[1] == "-c" or sys.argv[1] == "--cmdinfo":
 elif len(sys.argv) > 2:
     if args.quiet:
         print("Fetching Data..")
-        os.system(f"curl cht.sh/{args.lang}/{args.query} > etc\\app.txt")
+        os.system(f"curl cht.sh/{args.lang}/{args.query} > etc\\{today_is}-PROGRAMMING-{args.lang}.txt")
         logging.info(args)
         Logo.author()
     elif args.verbose:
