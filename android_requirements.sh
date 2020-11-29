@@ -18,4 +18,4 @@ echo """
 """
 echo "It takes time we're setting an environment for you"
 echo "\n"
-apt update && apt upgrade && pkg install root-repo && pkg install git && pkg install curl && pkg install python
+pkg install root-repo && pkg install git && pkg install curl && pkg install python
