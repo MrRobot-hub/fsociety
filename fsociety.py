@@ -24,8 +24,12 @@ today_is = get_date()
 # print logo
 Logo.create_logo()
 # create directories
-create_dir()
 
+dir_path = os.getcwd()
+dir_dict = ["etc", "logs"]
+for dirnames in dir_dict:
+    if not os.path.exists(f"{dir_path}\\{dirnames}"):
+        create_dir(dirname=dirnames)
 
 # get arguments
 parser = argparse.ArgumentParser(
@@ -91,47 +95,38 @@ group.add_argument(
     help="Display output on screen as well as saved in a system",
 )
 args = parser.parse_args()
-
-if check_os == "Windows":
-    path_curl32 = "bin\\curl-win32\\bin\\curl.exe"
-    path_curl64 = "bin\\curl-win64\\bin\\curl.exe"
+def config(common_slash):
+    config.path_curl32 = f"bin{common_slash}curl-win32{common_slash}bin{common_slash}curl.exe"
+    config.path_curl64 = f"bin{common_slash}curl-win64{common_slash}bin{common_slash}curl.exe"
     # get logs
-    logging.basicConfig(
-        filename="logs\\app.log",
+    config.logging = logging.basicConfig(
+        filename=f"logs{common_slash}app.log",
         filemode="a",
         format="%(asctime)s,%(msecs)d %(name)s %(levelname)s %(message)s",
         datefmt="%H:%M:%S",
         level=logging.DEBUG,
-)
-    param = f"{path}\\logs\\app.log"
-    python = "py"
-    path_to_store_cmds = f"etc\\{today_is}-COMMAND-{args.cmdinfo}.txt"
-    path_to_store_prgs = f"etc\\{today_is}-PROGRAMMING-{args.lang}.txt"
+    )
+    config.param = f"{path}{common_slash}logs{common_slash}app.log"
+    config.python = "py"
+    config.path_to_store_cmds = f"etc{common_slash}{today_is}-COMMAND-{args.cmdinfo}.txt"
+    config.path_to_store_prgs = f"etc{common_slash}{today_is}-PROGRAMMING-{args.lang}.txt"
+    
+
+if check_os == "Windows":
+    config("\\")
 elif check_os == "Linux":
     path_curl32 = "curl"
     path_curl64 = "curl"
-    param = f"{path}/logs/app.log"
-    path_to_store_cmds = f"etc/{today_is}-COMMAND-{args.cmdinfo}.txt"
-    path_to_store_prgs = f"etc/{today_is}-PROGRAMMING-{args.lang}.txt"
-    # get logs
-    logging.basicConfig(
-        filename="logs/app.log",
-        filemode="a",
-        format="%(asctime)s,%(msecs)d %(name)s %(levelname)s %(message)s",
-        datefmt="%H:%M:%S",
-        level=logging.DEBUG,
-)
-
-    python = "python"
+    config("/")
 else:
     print("Os not found, Please contact via gmail: \033[31mumerfarid53@gmail.com\033[0m")
 
 def list_logs(param):
     
     if platform.system() == "Windows":
-        os.system(f"type {param}")
+        os.system(f"type {config.param}")
     elif platform.system() == "Linux":
-        os.system(f"cat {param}")
+        os.system(f"cat {config.param}")
     else:
         print("Didn't recognize your operating system, upgrade to the latest version")
 
@@ -140,11 +135,11 @@ if len(sys.argv) < 2:
 
     fname = sys.argv[0]
     
-    os.system(f"{python} fsociety.py --help")
+    os.system(f"{config.python} fsociety.py --help")
     print(f"\n\033[31m{fname}: error: atleast one argument is required\033[0m")
 
 elif sys.argv[1] == "-lg" or sys.argv[1] == "--logs":
-    list_logs(param)
+    list_logs(config.param)
 
 elif sys.argv[1] == "-s" or sys.argv[1] == "--status":
     print("Data configurations: %s" % args)
@@ -168,7 +163,7 @@ elif sys.argv[1] == "-eg" or sys.argv[1] == "--examples":
 
 elif sys.argv[1] == "-c" or sys.argv[1] == "--cmdinfo":
     if args.quiet:
-        os.system(f"curl cht.sh/{args.cmdinfo} > {path_to_store_cmds}")
+        os.system(f"curl cht.sh/{args.cmdinfo} > {config.path_to_store_cmds}")
         Logo.author()
         logging.info(args)
     elif args.verbose:
@@ -179,16 +174,16 @@ elif sys.argv[1] == "-c" or sys.argv[1] == "--cmdinfo":
 elif len(sys.argv) > 2:
     if args.quiet:
         print("Fetching Data..")
-        os.system(f"curl cht.sh/{args.lang}/{args.query} > {path_to_store_prgs}")
+        os.system(f"curl cht.sh/{args.lang}/{args.query} > {config.path_to_store_prgs}")
         logging.info(args)
         Logo.author()
     elif args.verbose:
-        parsed_data = Check_arch(path_curl32, path_curl64, args.lang, args.query)
+        parsed_data = Check_arch(config.path_curl32, config.path_curl64, args.lang, args.query)
         parsed_data.lang_query_curl()
         Logo.author()
         logging.info(args)
     else:
-        os.system(f"{python} fsociety.py --help")
+        os.system(f"{config.python} fsociety.py --help")
         print("\033[31mPlease select mode of execution -v or --verbose to display it on screen or -qt or --quiet to save in a file\033[0m")
         
 
