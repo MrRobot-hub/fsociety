@@ -31,6 +31,6 @@ class Logo:
             "Language": "Python",
             "Age": 20,
         }
-
+        print("\n")
         for key, value in dict.items():
             print(f"{key:>16s} : {value}")
