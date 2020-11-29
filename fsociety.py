@@ -144,7 +144,7 @@ if len(sys.argv) < 2:
     print(f"\n\033[31m{fname}: error: atleast one argument is required\033[0m")
 
 elif sys.argv[1] == "-lg" or sys.argv[1] == "--logs":
-    list_logs(args.logs)
+    list_logs(param)
 
 elif sys.argv[1] == "-s" or sys.argv[1] == "--status":
     print("Data configurations: %s" % args)
