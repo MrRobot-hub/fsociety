@@ -17,21 +17,12 @@ from utilities.check_OS import Check_OS
 
 check_os = Check_OS.OS()
 path = os.getcwd()
-#initialize time
+# initialize time
 current_time = get_time()
 today_is = get_date()
 
 # print logo
 Logo.create_logo()
-# create directories
-
-dir_path = os.getcwd()
-dir_dict = ["etc", "logs"]
-for dirnames in dir_dict:
-    if not os.path.exists(f"{dir_path}\\{dirnames}"):
-        create_dir(dirname=dirnames)
-    else:
-        print(" ")
 
 # get arguments
 parser = argparse.ArgumentParser(
@@ -97,9 +88,26 @@ group.add_argument(
     help="Display output on screen as well as saved in a system",
 )
 args = parser.parse_args()
-def config(common_slash):
-    config.path_curl32 = f"bin{common_slash}curl-win32{common_slash}bin{common_slash}curl.exe"
-    config.path_curl64 = f"bin{common_slash}curl-win64{common_slash}bin{common_slash}curl.exe"
+# create directories
+
+
+def config_dir(common_slash):
+    dir_path = os.getcwd()
+    dir_dict = ["etc", "logs"]
+    for dirnames in dir_dict:
+        if not os.path.exists(f"{dir_path}{common_slash}{dirnames}"):
+            create_dir(dirname=dirnames)
+        else:
+            pass
+
+
+def config(common_slash, python):
+    config.path_curl32 = (
+        f"bin{common_slash}curl-win32{common_slash}bin{common_slash}curl.exe"
+    )
+    config.path_curl64 = (
+        f"bin{common_slash}curl-win64{common_slash}bin{common_slash}curl.exe"
+    )
     # get logs
     config.logging = logging.basicConfig(
         filename=f"logs{common_slash}app.log",
@@ -109,23 +117,29 @@ def config(common_slash):
         level=logging.DEBUG,
     )
     config.param = f"{path}{common_slash}logs{common_slash}app.log"
-    config.python = "py"
-    config.path_to_store_cmds = f"etc{common_slash}{today_is}-COMMAND-{args.cmdinfo}.txt"
-    config.path_to_store_prgs = f"etc{common_slash}{today_is}-PROGRAMMING-{args.lang}.txt"
-    
+    config.python = python
+    config.path_to_store_cmds = (
+        f"etc{common_slash}{today_is}-COMMAND-{args.cmdinfo}.txt"
+    )
+    config.path_to_store_prgs = (
+        f"etc{common_slash}{today_is}-PROGRAMMING-{args.lang}.txt"
+    )
+
 
 if check_os == "Windows":
-    config("\\")
+    config("\\", "py")
 elif check_os == "Linux":
     config.path_curl32 = "curl"
     config.path_curl64 = "curl"
-    python = "python"
-    config("/")
+    config("/", "python")
 else:
-    print("Os not found, Please contact via gmail: \033[31mumerfarid53@gmail.com\033[0m")
+    print(
+        "Os not found, Please contact via gmail: \033[31mumerfarid53@gmail.com\033[0m"
+    )
+
 
 def list_logs(param):
-    
+
     if platform.system() == "Windows":
         os.system(f"type {config.param}")
     elif platform.system() == "Linux":
@@ -137,8 +151,7 @@ def list_logs(param):
 if len(sys.argv) < 2:
 
     fname = sys.argv[0]
-    
-    os.system(f"{python} fsociety.py --help")
+    os.system(f"{config.python} fsociety.py --help")
     print(f"\n\033[31m{fname}: error: atleast one argument is required\033[0m")
 
 elif sys.argv[1] == "-lg" or sys.argv[1] == "--logs":
@@ -181,15 +194,19 @@ elif len(sys.argv) > 2:
         logging.info(args)
         Logo.author()
     elif args.verbose:
-        parsed_data = Check_arch(config.path_curl32, config.path_curl64, args.lang, args.query)
+        parsed_data = Check_arch(
+            config.path_curl32, config.path_curl64, args.lang, args.query
+        )
         parsed_data.lang_query_curl()
         Logo.author()
         logging.info(args)
     else:
         os.system(f"{config.python} fsociety.py --help")
-        print("\033[31mPlease select mode of execution -v or --verbose to display it on screen or -qt or --quiet to save in a file\033[0m")
-        
+        print(
+            "\033[31mPlease select mode of execution -v or --verbose to display it on screen or -qt or --quiet to save in a file\033[0m"
+        )
+
 
 logger = logging.getLogger("Neo X. Coders")
 
-print("\033[33m",logger, "\033[0m")
+print("\033[33m", logger, "\033[0m")
