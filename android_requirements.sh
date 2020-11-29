@@ -1,12 +1,12 @@
 clear
 echo """
-\033[32m
+
           █████▒ ██████  ▒█████   ▄████▄   ██▓▓█████▄▄▄█████▓▓██   ██▓
         ▓██   ▒▒██    ▒ ▒██▒  ██▒▒██▀ ▀█  ▓██▒▓█   ▀▓  ██▒ ▓▒ ▒██  ██▒
         ▒████ ░░ ▓██▄   ▒██░  ██▒▒▓█    ▄ ▒██▒▒███  ▒ ▓██░ ▒░  ▒██ ██░
         ░▓█▒  ░  ▒   ██▒▒██   ██░▒▓▓▄ ▄██▒░██░▒▓█  ▄░ ▓██▓ ░   ░ ▐██▓░
         ░▒█░   ▒██████▒▒░ ████▓▒░▒ ▓███▀ ░░██░░▒████▒ ▒██▒ ░   ░ ██▒▓░
-        \033[31m▒ ░   ▒ ▒▓▒ ▒ ░░ ▒░▒░▒░ ░ ░▒ ▒  ░░▓  ░░ ▒░ ░ ▒ ░░      ██▒▒▒ 
+        ▒ ░   ▒ ▒▓▒ ▒ ░░ ▒░▒░▒░ ░ ░▒ ▒  ░░▓  ░░ ▒░ ░ ▒ ░░      ██▒▒▒ 
         ░     ░ ░▒  ░ ░  ░ ▒ ▒░   ░  ▒    ▒ ░ ░ ░  ░   ░     ▓██ ░▒░ 
         ░ ░   ░  ░  ░  ░ ░ ░ ▒  ░         ▒ ░   ░    ░       ▒ ▒ ░░  
              ░      ░ ░  ░ ░       ░     ░  ░         ░ ░     
@@ -17,4 +17,4 @@ echo """
 
 """
 echo "It takes time we're setting an environment for you"
-pkg install root-repo && pkg install git && pkg install curl && pkg install python
+apt update && apt upgrade && apt install root-repo && apt install git && apt install curl && apt install python
