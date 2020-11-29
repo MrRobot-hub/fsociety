@@ -101,10 +101,8 @@ def config_dir(common_slash):
             pass
 
 
-def config(common_slash, python):
-    config.path_curl32 = (
-        f"bin{common_slash}curl-win32{common_slash}bin{common_slash}curl.exe"
-    )
+def config(common_slash, python, path_curl32, path_curl64):
+    config.path_curl32 = path_curl32
     config.path_curl64 = (
         f"bin{common_slash}curl-win64{common_slash}bin{common_slash}curl.exe"
     )
@@ -127,13 +125,15 @@ def config(common_slash, python):
 
 
 if check_os == "Windows":
+    path_curl32 = f"bin\\curl-win32\\bin\\curl.exe"
+    path_curl64 = f"bin\\curl-win64\\bin\\curl.exe"
     config_dir("\\")
-    config("\\", "py")
+    config("\\", "py", path_curl32, path_curl64)
 elif check_os == "Linux":
     config_dir("/")
-    config.path_curl32 = "curl"
-    config.path_curl64 = "curl"
-    config("/", "python")
+    path_curl32 = "curl"
+    path_curl64 = "curl"
+    config("/", "python", path_curl32, path_curl64)
 else:
     print(
         "Os not found, Please contact via gmail: \033[31mumerfarid53@gmail.com\033[0m"
