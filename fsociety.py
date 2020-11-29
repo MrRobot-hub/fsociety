@@ -127,8 +127,10 @@ def config(common_slash, python):
 
 
 if check_os == "Windows":
+    config_dir("\\")
     config("\\", "py")
 elif check_os == "Linux":
+    config_dir("/")
     config.path_curl32 = "curl"
     config.path_curl64 = "curl"
     config("/", "python")
