@@ -103,9 +103,7 @@ def config_dir(common_slash):
 
 def config(common_slash, python, path_curl32, path_curl64):
     config.path_curl32 = path_curl32
-    config.path_curl64 = (
-        f"bin{common_slash}curl-win64{common_slash}bin{common_slash}curl.exe"
-    )
+    config.path_curl64 = path_curl64
     # get logs
     config.logging = logging.basicConfig(
         filename=f"logs{common_slash}app.log",
