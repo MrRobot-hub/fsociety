@@ -16,24 +16,17 @@ from utilities.time import get_date
 from utilities.check_OS import Check_OS
 
 check_os = Check_OS.OS()
-if check_os == "Windows":
-    path_curl32 = "bin\\curl-win32\\bin\\curl.exe"
-    path_curl64 = "bin\\curl-win64\\bin\\curl.exe"
-    python = "py"
-elif check_os == "Linux":
-    path_curl32 = "curl"
-    path_curl64 = "curl"
-    python = "python"
-else:
-    print("Os not found, Please contact via gmail: \033[31mumerfarid53@gmail.com\033[0m")
+path = os.getcwd()
+#initialize time
+current_time = get_time()
+today_is = get_date()
+
 # print logo
 Logo.create_logo()
 # create directories
 create_dir()
 
-#initialize time
-current_time = get_time()
-today_is = get_date()
+
 # get arguments
 parser = argparse.ArgumentParser(
     description="\nLearn programming by @NEO X. CODERS. You can learn any of programming languages from here. Just give a programming name or programming name with a particular topic as an argument to the file\n"
@@ -97,21 +90,43 @@ group.add_argument(
     action="store_true",
     help="Display output on screen as well as saved in a system",
 )
+args = parser.parse_args()
 
-
-# get logs
-logging.basicConfig(
-    filename="logs\\app.log",
-    filemode="a",
-    format="%(asctime)s,%(msecs)d %(name)s %(levelname)s %(message)s",
-    datefmt="%H:%M:%S",
-    level=logging.DEBUG,
+if check_os == "Windows":
+    path_curl32 = "bin\\curl-win32\\bin\\curl.exe"
+    path_curl64 = "bin\\curl-win64\\bin\\curl.exe"
+    # get logs
+    logging.basicConfig(
+        filename="logs\\app.log",
+        filemode="a",
+        format="%(asctime)s,%(msecs)d %(name)s %(levelname)s %(message)s",
+        datefmt="%H:%M:%S",
+        level=logging.DEBUG,
+)
+    param = f"{path}\\logs\\app.log"
+    python = "py"
+    path_to_store_cmds = f"etc\\{today_is}-COMMAND-{args.cmdinfo}.txt"
+    path_to_store_prgs = f"etc\\{today_is}-PROGRAMMING-{args.lang}.txt"
+elif check_os == "Linux":
+    path_curl32, path_curl64 = "curl"
+    param = f"{path}/logs/app.log"
+    path_to_store_cmds = f"etc/{today_is}-COMMAND-{args.cmdinfo}.txt"
+    path_to_store_prgs = f"etc/{today_is}-PROGRAMMING-{args.lang}.txt"
+    # get logs
+    logging.basicConfig(
+        filename="logs/app.log",
+        filemode="a",
+        format="%(asctime)s,%(msecs)d %(name)s %(levelname)s %(message)s",
+        datefmt="%H:%M:%S",
+        level=logging.DEBUG,
 )
 
+    python = "python"
+else:
+    print("Os not found, Please contact via gmail: \033[31mumerfarid53@gmail.com\033[0m")
 
 def list_logs(param):
-    path = os.getcwd()
-    param = f"{path}\\logs\\app.log"
+    
     if platform.system() == "Windows":
         os.system(f"type {param}")
     elif platform.system() == "Linux":
@@ -119,8 +134,6 @@ def list_logs(param):
     else:
         print("Didn't recognize your operating system, upgrade to the latest version")
 
-
-args = parser.parse_args()
 
 if len(sys.argv) < 2:
 
@@ -154,7 +167,7 @@ elif sys.argv[1] == "-eg" or sys.argv[1] == "--examples":
 
 elif sys.argv[1] == "-c" or sys.argv[1] == "--cmdinfo":
     if args.quiet:
-        os.system(f"curl cht.sh/{args.cmdinfo} > etc\\{today_is}-COMMAND-{args.cmdinfo}.txt")
+        os.system(f"curl cht.sh/{args.cmdinfo} > {path_to_store_cmds}")
         Logo.author()
         logging.info(args)
     elif args.verbose:
@@ -165,7 +178,7 @@ elif sys.argv[1] == "-c" or sys.argv[1] == "--cmdinfo":
 elif len(sys.argv) > 2:
     if args.quiet:
         print("Fetching Data..")
-        os.system(f"curl cht.sh/{args.lang}/{args.query} > etc\\{today_is}-PROGRAMMING-{args.lang}.txt")
+        os.system(f"curl cht.sh/{args.lang}/{args.query} > {path_to_store_prgs}")
         logging.info(args)
         Logo.author()
     elif args.verbose:
