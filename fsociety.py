@@ -117,7 +117,7 @@ if check_os == "Windows":
 elif check_os == "Linux":
     config.path_curl32 = "curl"
     config.path_curl64 = "curl"
-    config.python = "python"
+    python = "python"
     config("/")
 else:
     print("Os not found, Please contact via gmail: \033[31mumerfarid53@gmail.com\033[0m")
@@ -136,7 +136,7 @@ if len(sys.argv) < 2:
 
     fname = sys.argv[0]
     
-    os.system(f"{config.python} fsociety.py --help")
+    os.system(f"{python} fsociety.py --help")
     print(f"\n\033[31m{fname}: error: atleast one argument is required\033[0m")
 
 elif sys.argv[1] == "-lg" or sys.argv[1] == "--logs":
