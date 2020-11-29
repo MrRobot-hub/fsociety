@@ -13,9 +13,17 @@ from utilities.utility import Check_arch
 from utilities.check_dir import create_dir
 from utilities.time import get_time
 from utilities.time import get_date
+from utilities.check_OS import Check_OS
 
-path_curl32 = "bin\\curl-win32\\bin\\curl.exe"
-path_curl64 = "bin\\curl-win64\\bin\\curl.exe"
+check_os = Check_OS.OS()
+if check_os == "Windows":
+    path_curl32 = "bin\\curl-win32\\bin\\curl.exe"
+    path_curl64 = "bin\\curl-win64\\bin\\curl.exe"
+elif check_os == "Linux":
+    path_curl32 = "curl"
+    path_curl64 = "curl"
+else:
+    print("Os not found, Please contact via gmail: \033[31mumerfarid53@gmail.com\033[0m")
 # print logo
 Logo.create_logo()
 # create directories
