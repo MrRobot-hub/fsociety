@@ -93,11 +93,6 @@ logging.basicConfig(
     level=logging.DEBUG,
 )
 
-"""
-def lang_query_curl(language, query):
-    os.system(f"curl cheat.sh/{language}/{query}")
-"""
-
 
 def list_logs(param):
     path = os.getcwd()
@@ -115,10 +110,9 @@ args = parser.parse_args()
 if len(sys.argv) < 2:
 
     fname = sys.argv[0]
-    print(parser.description)
-    print(f"usage: {fname} [-h] [-l] [-q] [-slogs] [-s] [-lg] [-qt | -v | -c]")
-    print(f"{fname}: error: atleast one argument is required")
-    print(f"{fname} -h or --help to list out decriptive args\n")
+    
+    os.system("py fsociety.py --help")
+    print(f"\n\033[31m{fname}: error: atleast one argument is required\033[0m")
 
 elif sys.argv[1] == "-lg" or sys.argv[1] == "--logs":
     list_logs(args.logs)
@@ -164,6 +158,10 @@ elif len(sys.argv) > 2:
         parsed_data.lang_query_curl()
         Logo.author()
         logging.info(args)
+    else:
+        os.system("py fsociety.py --help")
+        print("\033[31mPlease select mode of execution -v or --verbose to display it on screen or -qt or --quiet to save in a file\033[0m")
+        
 
 logger = logging.getLogger("Neo X. Coders")
 
