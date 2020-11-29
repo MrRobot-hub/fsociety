@@ -108,7 +108,8 @@ if check_os == "Windows":
     path_to_store_cmds = f"etc\\{today_is}-COMMAND-{args.cmdinfo}.txt"
     path_to_store_prgs = f"etc\\{today_is}-PROGRAMMING-{args.lang}.txt"
 elif check_os == "Linux":
-    path_curl32, path_curl64 = "curl"
+    path_curl32 = "curl"
+    path_curl64 = "curl"
     param = f"{path}/logs/app.log"
     path_to_store_cmds = f"etc/{today_is}-COMMAND-{args.cmdinfo}.txt"
     path_to_store_prgs = f"etc/{today_is}-PROGRAMMING-{args.lang}.txt"
