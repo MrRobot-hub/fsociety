@@ -30,6 +30,8 @@ dir_dict = ["etc", "logs"]
 for dirnames in dir_dict:
     if not os.path.exists(f"{dir_path}\\{dirnames}"):
         create_dir(dirname=dirnames)
+    else:
+        print(" ")
 
 # get arguments
 parser = argparse.ArgumentParser(
