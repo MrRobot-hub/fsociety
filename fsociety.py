@@ -19,9 +19,11 @@ check_os = Check_OS.OS()
 if check_os == "Windows":
     path_curl32 = "bin\\curl-win32\\bin\\curl.exe"
     path_curl64 = "bin\\curl-win64\\bin\\curl.exe"
+    python = "py"
 elif check_os == "Linux":
     path_curl32 = "curl"
     path_curl64 = "curl"
+    python = "python"
 else:
     print("Os not found, Please contact via gmail: \033[31mumerfarid53@gmail.com\033[0m")
 # print logo
@@ -124,7 +126,7 @@ if len(sys.argv) < 2:
 
     fname = sys.argv[0]
     
-    os.system("py fsociety.py --help")
+    os.system(f"{python} fsociety.py --help")
     print(f"\n\033[31m{fname}: error: atleast one argument is required\033[0m")
 
 elif sys.argv[1] == "-lg" or sys.argv[1] == "--logs":
@@ -172,7 +174,7 @@ elif len(sys.argv) > 2:
         Logo.author()
         logging.info(args)
     else:
-        os.system("py fsociety.py --help")
+        os.system(f"{python} fsociety.py --help")
         print("\033[31mPlease select mode of execution -v or --verbose to display it on screen or -qt or --quiet to save in a file\033[0m")
         
 
