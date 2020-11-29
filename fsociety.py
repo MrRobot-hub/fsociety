@@ -117,6 +117,7 @@ if check_os == "Windows":
 elif check_os == "Linux":
     path_curl32 = "curl"
     path_curl64 = "curl"
+    python = "python"
     config("/")
 else:
     print("Os not found, Please contact via gmail: \033[31mumerfarid53@gmail.com\033[0m")
